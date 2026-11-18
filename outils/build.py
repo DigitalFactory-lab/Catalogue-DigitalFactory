@@ -542,7 +542,7 @@ for n, (num, name, dur, lo, hi) in enumerate(TYPES):
         f'<p class="ovdur">{dur}</p>'
         '</div>')
 slides['apercu'] = (
-    '<section id="apercu" class="light" data-transition="push">'
+    '<section id="apercu" class="tint" data-transition="push">'
     f'{prog(2)}'
     + head('Le catalogue', 'Six types d’ateliers,', 'modulables selon les besoins du groupe.') +
     '<div class="ov">'
@@ -555,9 +555,9 @@ slides['apercu'] = (
 )
 
 # 03-08 — Types
-def type_slide(sid, idx, kicker, name, promise, text, dur_html, fig_html):
+def type_slide(sid, idx, kicker, name, promise, text, dur_html, fig_html, bg='light'):
     return (
-        f'<section id="{sid}" class="light" data-transition="push">'
+        f'<section id="{sid}" class="{bg}" data-transition="push">'
         f'{bignum(f"0{idx}")}{prog(idx + 2)}'
         + head(f'0{idx} · {kicker}', name, promise) +
         '<div class="cols">'
@@ -612,7 +612,7 @@ fig2 = (
 
 # Fig 03 — Immersion
 bars = ''
-for n, (lab, col) in enumerate((('Travail en équipe', BLUE), ('Expression orale', VIOLET), ('Technique', DARK))):
+for n, (lab, col) in enumerate((('Travail en équipe', '#B8BBEA'), ('Expression orale', '#DEABE3'), ('Technique', '#ffffff'))):
     bars += (
         f'<div style="display:flex; align-items:center; gap:24px; margin-top:{18 if n else 20}px">'
         f'<p class="lab" style="width:290px; font-size:28px; font-weight:500">{lab}</p>'
@@ -692,8 +692,11 @@ TY = [
     ('culture-numerique', 5, 'Culture numérique', 'Culture numérique', 'réflexes et esprit critique.', T5, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig5),
     ('prise-de-parole', 6, 'Prise de parole', 'Prise de parole', 'gagner en assurance.', T6, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig6),
 ]
+# Fonds : deux tons clairs qui alternent (gris, lavande), Immersion et Culture numérique en bleu foncé
+BG = {'visites': 'light', 'premiers-pas': 'tint', 'immersion': 'dark', 'metiers': 'light',
+      'culture-numerique': 'dark', 'prise-de-parole': 'tint'}
 for sid, idx, kick, name, promise, text, dh, fh in TY:
-    slides[sid] = type_slide(sid, idx, kick, name, promise, text, dh, fh)
+    slides[sid] = type_slide(sid, idx, kick, name, promise, text, dh, fh, BG[sid])
 
 # 09 — Modularité
 TM = ("Selon les besoins du groupe, un module Culture numérique ou Prise de parole peut compléter un autre atelier ou en remplacer une partie. "
@@ -713,12 +716,12 @@ figm = (
     + '</div>'
     '<div class="prow f" style="--i:9; gap:40px; margin-top:36px">'
     f'<div class="prow" style="gap:14px"><div style="width:28px; height:28px; border-radius:6px; background:{VIOLET}"></div>'
-    '<p class="sub" style="color:#333333">Module Culture numérique ou Prise de parole</p></div>'
+    '<p class="sub">Module Culture numérique ou Prise de parole</p></div>'
     f'<div class="prow" style="gap:14px"><div style="box-sizing:border-box; width:28px; height:28px; border-radius:6px; border:2px solid {DARK}; background:#ffffff"></div>'
-    '<p class="sub" style="color:#333333">Atelier</p></div>'
+    '<p class="sub">Atelier</p></div>'
     '</div>')
 slides['modularite'] = (
-    '<section id="modularite" class="light" data-transition="push">'
+    '<section id="modularite" class="grad" data-transition="push">'
     f'{prog(9)}'
     + head('Modularité', 'Des ateliers', 'modulables.') +
     f'<p class="body a" style="--i:2; margin-top:48px; width:1320px; font-size:28px">{q(TM)}</p>'

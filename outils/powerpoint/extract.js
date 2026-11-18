@@ -78,6 +78,17 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>${base}</s
           items.push({ kind: 'text', tag, cls: el.className, runs: runsOf(el), st: textStyle(el), box: painted ? bs : null, flexCenter: cs.justifyContent === 'center', ...R(el), anim: animOf(el), parentCls: el.parentElement.className });
           return;
         }
+        // hachures (durée variable) : redessinées en SVG avec leurs vraies couleurs
+        if (bs.bgImage && bs.bgImage.includes('repeating-linear-gradient')) {
+          const cols = bs.bgImage.match(/rgba?\([^)]+\)/g) || ['rgb(91, 96, 168)', 'rgb(224, 224, 224)'];
+          const r = R(el); nsvg++;
+          const hs = `<svg xmlns="http://www.w3.org/2000/svg" width="${r.w}" height="${r.h}" viewBox="0 0 ${r.w} ${r.h}">` +
+            `<defs><pattern id="h" patternUnits="userSpaceOnUse" width="9" height="9" patternTransform="rotate(45)">` +
+            `<rect width="9" height="9" fill="${cols[cols.length - 1]}"/><rect width="4" height="9" fill="${cols[0]}"/></pattern></defs>` +
+            `<rect width="${r.w}" height="${r.h}" fill="url(#h)"/></svg>`;
+          items.push({ kind: 'img', id: `${sec.id}_${nsvg}`, svg: hs, label: 'Durée variable', ...r, anim: animOf(el), cls: el.className });
+          return;
+        }
         if (painted) items.push({ kind: 'box', tag, cls: el.className, bs, ...R(el), anim: animOf(el) });
         for (const ch of el.children) walk(ch);
       };
