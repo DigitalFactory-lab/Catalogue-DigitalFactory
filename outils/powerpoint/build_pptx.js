@@ -40,19 +40,6 @@ pres.defineSlideMaster({ title: 'DF Contenu', background: { color: 'F4F5F7' },
       color: C.text2, align: 'left', valign: 'top', margin: 0, lineSpacing: 35.2, charSpacing: -0.75 }, text: '' } },
     { rect: { x: 0, y: P(1074), w: P(1920), h: P(6), fill: { color: C.accent4 } } },
   ] });
-const contentObjects = (bgSquare, kickerColor, titleColor, track) => ([
-  { rect: { x: P(128), y: P(135), w: P(14), h: P(14), fill: { color: bgSquare } } },
-  kickerPh(kickerColor),
-  { placeholder: { options: { name: 'title', type: 'title', x: P(128), y: P(174), w: P(1664), h: P(150), fontSize: 32, bold: true,
-    color: titleColor, align: 'left', valign: 'top', margin: 0, lineSpacing: 35.2, charSpacing: -0.75 }, text: '' } },
-  { rect: { x: 0, y: P(1074), w: P(1920), h: P(6), fill: track } },
-]);
-pres.defineSlideMaster({ title: 'DF Contenu lavande', background: { color: 'EAEBF5' },
-  objects: contentObjects(C.accent2, C.accent1, C.text2, { color: C.accent4 }) });
-pres.defineSlideMaster({ title: 'DF Sombre contenu', background: { color: '2F3A48' },
-  objects: contentObjects(C.background1, C.background1, C.background1, { color: '4A5566' }) });
-pres.defineSlideMaster({ title: 'DF Dégradé', background: { path: '/home/claude/pptx/img/grad.png' },
-  objects: contentObjects(C.background1, C.background1, C.background1, { color: 'FFFFFF', transparency: 72 }) });
 pres.defineSlideMaster({ title: 'DF Sombre', background: { color: '2F3A48' },
   objects: [
     { rect: { x: P(128), y: P(135), w: P(14), h: P(14), fill: { color: C.background1 } } },
@@ -107,9 +94,7 @@ let section = null;
 for (const s of L) {
   if (SECTIONS[s.id]) { section = SECTIONS[s.id]; pres.addSection({ title: section }); }
   SID = s.id;
-  const has = (c) => new RegExp(`\\b${c}\\b`).test(s.cls);
-  const master = s.id === 'couverture' ? 'DF Couverture' : has('grad') ? 'DF Dégradé'
-    : has('dark') ? (has('foot') ? 'DF Sombre' : 'DF Sombre contenu') : has('tint') ? 'DF Contenu lavande' : 'DF Contenu';
+  const master = s.id === 'couverture' ? 'DF Couverture' : s.cls.includes('dark') ? 'DF Sombre' : 'DF Contenu';
   const slide = pres.addSlide({ masterName: master, sectionTitle: section });
   for (const it of s.items) {
     const cls = it.cls || '';

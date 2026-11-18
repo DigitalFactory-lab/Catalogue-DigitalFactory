@@ -1,7 +1,6 @@
 body { font-family: 'Poppins', Arial, sans-serif; color: #333333; font-size: 28px; line-height: 1.5; }
 section { padding: 128px; box-sizing: border-box; display: flex; flex-direction: column; }
 section.light { background: #f4f5f7; }
-section.tint { background: #EAEBF5; }
 section.dark { background: #2f3a48; color: #ffffff; }
 section.grad { background: linear-gradient(120deg, #2f3a48 0%, #5b60a8 62%, #8c4292 100%); color: #ffffff; }
 section.foot { padding: 128px 128px 160px; }
@@ -17,8 +16,7 @@ section.foot { padding: 128px 128px 160px; }
 .title { font-size: 64px; font-weight: 700; line-height: 1.1; letter-spacing: -1.5px; color: #2f3a48; margin-top: 20px; }
 .hl { color: #5b60a8; }
 
-.bignum { position: absolute; left: 1192px; top: 128px; width: 600px; text-align: right; font-size: 260px; font-weight: 700; line-height: 1; letter-spacing: -10px; color: #F5C2DC; }
-.dark .bignum { color: #F0268B; }
+.bignum { position: absolute; left: 1192px; top: 128px; width: 600px; text-align: right; font-size: 260px; font-weight: 700; line-height: 1; letter-spacing: -10px; color: #e3e5ea; }
 
 .prog { position: absolute; left: 0; top: 1074px; width: 1920px; height: 6px; background: #e0e0e0; overflow: hidden; }
 .progfill { height: 6px; background: #5b60a8; animation: progstep 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
@@ -50,19 +48,6 @@ section.foot { padding: 128px 128px 160px; }
 .hatch { height: 16px; background: repeating-linear-gradient(135deg, #5b60a8 0px, #5b60a8 4px, #e0e0e0 4px, #e0e0e0 9px); }
 .ticks { position: relative; width: 760px; height: 36px; margin-top: 8px; }
 .tick { position: absolute; top: 0; width: 120px; font-size: 24px; line-height: 1.4; color: #5f6673; }
-/* touche de rose vif : la durée de chaque type d'atelier */
-.dblock .solid { background: #F0268B; }
-.dblock .hatch { background: repeating-linear-gradient(135deg, #F0268B 0px, #F0268B 4px, #e0e0e0 4px, #e0e0e0 9px); }
-/* pages foncées (bleu foncé, dégradé) : textes clairs */
-.dark .title, .grad .title { color: #ffffff; }
-.dark .hl, .grad .hl { color: #B8BBEA; }
-.dark .body, .grad .body { color: #E6E8EE; }
-.dark .dlabel, .dark .tick, .dark .cap, .dark .sub { color: #C5CAD3; }
-.grad .sub { color: #ffffff; }
-.dark .dur, .dark .lab { color: #ffffff; }
-.dark .dursub { color: #B8BBEA; }
-.dark .track { background: #4A5566; }
-.dark .dblock .hatch { background: repeating-linear-gradient(135deg, #F0268B 0px, #F0268B 4px, #4A5566 4px, #4A5566 9px); }
 
 .fig { position: relative; width: 824px; height: 570px; }
 .cap { font-size: 24px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: #5f6673; line-height: 1.2; }

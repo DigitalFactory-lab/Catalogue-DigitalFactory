@@ -12,6 +12,7 @@ NB = ' '   # espace insécable
 AP = '’'   # apostrophe typographique
 
 DARK, BLUE, VIOLET = '#2f3a48', '#5b60a8', '#8c4292'
+PINK = '#F0268B'   # couleur « peps » : quelques détails en action (faisceau laser, point laser, étincelle IA, voyant REC)
 BG, LINE, MUTED = '#f4f5f7', '#e0e0e0', '#5f6673'
 N_SLIDES = 10
 PX_PER_STEP = 1920 // N_SLIDES
@@ -105,8 +106,8 @@ def d_laser():
         f'<rect x="2" y="44" width="256" height="104" rx="10" fill="#ffffff" {S} stroke-width="3"/>'
         f'<rect x="24" y="58" width="212" height="56" rx="4" fill="{BG}" {S} stroke-width="2"/>'
         f'<rect x="116" y="62" width="28" height="18" rx="3" fill="#ffffff" {S} stroke-width="2"/>'
-        f'<line x1="130" y1="80" x2="130" y2="100" stroke="{VIOLET}" stroke-width="3" stroke-linecap="round"/>'
-        f'<circle cx="130" cy="103" r="4" fill="{VIOLET}"/>'
+        f'<line x1="130" y1="80" x2="130" y2="100" stroke="{PINK}" stroke-width="3" stroke-linecap="round"/>'
+        f'<circle cx="130" cy="103" r="4" fill="{PINK}"/>'
         f'<rect x="40" y="104" width="180" height="6" fill="{BLUE}"/>'
         f'<line x1="24" y1="130" x2="236" y2="130" {S} stroke-width="2"/>'))
 
@@ -231,7 +232,7 @@ def d_chip():
                  f'<line x1="88" y1="{k}" x2="102" y2="{k}" {S} stroke-width="3.5"/>')
     return svg(110, 110, 'Puce d’intelligence artificielle', (
         f'{pins}<rect x="22" y="22" width="66" height="66" rx="9" fill="#ffffff" {S} stroke-width="4"/>'
-        f'<path d="M55 36 L60 50 L74 55 L60 60 L55 74 L50 60 L36 55 L50 50 Z" fill="{VIOLET}"/>'))
+        f'<path d="M55 36 L60 50 L74 55 L60 60 L55 74 L50 60 L36 55 L50 50 Z" fill="{PINK}"/>'))
 
 def d_levels():
     return svg(46, 36, 'Niveaux variés', (
@@ -387,7 +388,7 @@ def d_cut_body():
 def d_laser_dot():
     return svg(26, 26, 'Tête laser', (
         f'<rect x="1.5" y="1.5" width="23" height="23" rx="6" fill="{DARK}"/>'
-        f'<circle cx="13" cy="13" r="5" fill="{VIOLET}" stroke="#ffffff" stroke-width="2"/>'))
+        f'<circle cx="13" cy="13" r="5" fill="{PINK}" stroke="#ffffff" stroke-width="2"/>'))
 
 def d_camera_body():
     return svg(330, 270, 'Caméra du studio de captation vidéo', (
@@ -542,7 +543,7 @@ for n, (num, name, dur, lo, hi) in enumerate(TYPES):
         f'<p class="ovdur">{dur}</p>'
         '</div>')
 slides['apercu'] = (
-    '<section id="apercu" class="tint" data-transition="push">'
+    '<section id="apercu" class="light" data-transition="push">'
     f'{prog(2)}'
     + head('Le catalogue', 'Six types d’ateliers,', 'modulables selon les besoins du groupe.') +
     '<div class="ov">'
@@ -555,9 +556,9 @@ slides['apercu'] = (
 )
 
 # 03-08 — Types
-def type_slide(sid, idx, kicker, name, promise, text, dur_html, fig_html, bg='light'):
+def type_slide(sid, idx, kicker, name, promise, text, dur_html, fig_html):
     return (
-        f'<section id="{sid}" class="{bg}" data-transition="push">'
+        f'<section id="{sid}" class="light" data-transition="push">'
         f'{bignum(f"0{idx}")}{prog(idx + 2)}'
         + head(f'0{idx} · {kicker}', name, promise) +
         '<div class="cols">'
@@ -612,7 +613,7 @@ fig2 = (
 
 # Fig 03 — Immersion
 bars = ''
-for n, (lab, col) in enumerate((('Travail en équipe', '#B8BBEA'), ('Expression orale', '#DEABE3'), ('Technique', '#ffffff'))):
+for n, (lab, col) in enumerate((('Travail en équipe', BLUE), ('Expression orale', VIOLET), ('Technique', DARK))):
     bars += (
         f'<div style="display:flex; align-items:center; gap:24px; margin-top:{18 if n else 20}px">'
         f'<p class="lab" style="width:290px; font-size:28px; font-weight:500">{lab}</p>'
@@ -676,7 +677,7 @@ for n, (num, txt) in enumerate((('01', 'Repérer ses freins et ses atouts'), ('0
 fig6 = (
     '<div class="fig">'
     + pin(0, 0, 330, 270, d_camera_body(), 'a', 3)
-    + pin(193, 55, 18, 18, '', 'rec', None, f' border-radius:9px; background:{VIOLET};')
+    + pin(193, 55, 18, 18, '', 'rec', None, f' border-radius:9px; background:{PINK};')
     + pin(424, 4, 380, 260, f'<div class="focus" style="width:380px; height:260px">{d_frame()}</div>', 'a', 4)
     + pin(0, 296, 824, 0, steps, 'a', 5)
     + pin(0, 476, 824, 0, (
@@ -692,11 +693,8 @@ TY = [
     ('culture-numerique', 5, 'Culture numérique', 'Culture numérique', 'réflexes et esprit critique.', T5, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig5),
     ('prise-de-parole', 6, 'Prise de parole', 'Prise de parole', 'gagner en assurance.', T6, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig6),
 ]
-# Fonds : deux tons clairs qui alternent (gris, lavande), Immersion et Culture numérique en bleu foncé
-BG = {'visites': 'light', 'premiers-pas': 'tint', 'immersion': 'dark', 'metiers': 'light',
-      'culture-numerique': 'dark', 'prise-de-parole': 'tint'}
 for sid, idx, kick, name, promise, text, dh, fh in TY:
-    slides[sid] = type_slide(sid, idx, kick, name, promise, text, dh, fh, BG[sid])
+    slides[sid] = type_slide(sid, idx, kick, name, promise, text, dh, fh)
 
 # 09 — Modularité
 TM = ("Selon les besoins du groupe, un module Culture numérique ou Prise de parole peut compléter un autre atelier ou en remplacer une partie. "
@@ -716,12 +714,12 @@ figm = (
     + '</div>'
     '<div class="prow f" style="--i:9; gap:40px; margin-top:36px">'
     f'<div class="prow" style="gap:14px"><div style="width:28px; height:28px; border-radius:6px; background:{VIOLET}"></div>'
-    '<p class="sub">Module Culture numérique ou Prise de parole</p></div>'
+    '<p class="sub" style="color:#333333">Module Culture numérique ou Prise de parole</p></div>'
     f'<div class="prow" style="gap:14px"><div style="box-sizing:border-box; width:28px; height:28px; border-radius:6px; border:2px solid {DARK}; background:#ffffff"></div>'
-    '<p class="sub">Atelier</p></div>'
+    '<p class="sub" style="color:#333333">Atelier</p></div>'
     '</div>')
 slides['modularite'] = (
-    '<section id="modularite" class="grad" data-transition="push">'
+    '<section id="modularite" class="light" data-transition="push">'
     f'{prog(9)}'
     + head('Modularité', 'Des ateliers', 'modulables.') +
     f'<p class="body a" style="--i:2; margin-top:48px; width:1320px; font-size:28px">{q(TM)}</p>'
