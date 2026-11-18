@@ -479,19 +479,20 @@ T_SIX = T0 + 0.1                           # la buse imprime le « 6 » (1,8 s)
 T_KICK = T_SIX + 1.8 + 0.5                 # la buse partie, le surtitre et les puces arrivent
 six2, sw2, sh2 = hero_six_light(330)
 HERO_X, HERO_Y = 128, 128 + 176 + 24 * 1.2 + 28      # coin du 6 dans la diapositive (mise en page en flux)
-six_page, (EW6, EH6, SX6, SY6) = six_embed(six2, sw2, sh2, ink_top=10, ink_bot=sh2 - 10, t0=T_SIX)
+# copie du 6 pour la page intégrée, avec son propre identifiant de motif (aucun doublon d'id dans la diapositive)
+six_page, (EW6, EH6, SX6, SY6) = six_embed(six2.replace('cv2-layers', 'xq-layers'), sw2, sh2, ink_top=10, ink_bot=sh2 - 10, t0=T_SIX)
 six_html = x_embed('noexport', HERO_X - SX6, round(HERO_Y - SY6, 2), EW6, EH6, six_page)
 chips = ''.join(
     f'<p class="chip cvIn" style="animation-delay:{T_KICK + 0.15 + n * 0.08:.2f}s"><span class="hl">{num}</span>{NB}{NB}{name}</p>'
-    for n, (num, name) in enumerate((('01', 'Visites'), ('02', 'Premiers pas'), ('03', 'Immersion'), ('04', 'Métiers'),
-                                     ('05', 'Culture numérique'), ('06', 'Prise de parole'))))
+    for n, (num, name) in enumerate((('01', 'Visites'), ('02', 'Premiers pas'), ('03', 'Immersion'), ('04', 'Métier augmenté'),
+                                     ('05', 'Culture numérique'), ('06', 'Face caméra'))))
 info_html = (
     f'<div class="kick cvIn" style="margin-top:176px; animation-delay:{T_KICK:.2f}s"><div class="sq"></div><p class="kicker">Catalogue des ateliers</p></div>'
     '<div style="display:flex; align-items:center; gap:56px; margin-top:28px">'
     f'<div class="cvSix" style="width:{sw2}px; height:{sh2}px">{six2}</div>'
     f'<div class="cvIn" style="width:600px; animation-delay:{T0 + 0.3:.2f}s">'
-    '<p style="font-size:64px; font-weight:700; line-height:1.1; letter-spacing:-1.5px; color:#2f3a48">types d’ateliers</p>'
-    '<p style="font-size:32px; font-weight:400; line-height:1.4; color:#333333; margin-top:16px">modulables selon les besoins du groupe</p>'
+    '<p style="font-size:150px; font-weight:700; line-height:1; letter-spacing:-4px; color:#2f3a48">ateliers</p>'
+    '<p style="font-size:28px; font-weight:400; line-height:1.4; color:#333333; margin-top:14px; white-space:nowrap">modulables selon les besoins du groupe</p>'
     '</div>'
     '</div>'
     f'<div style="display:flex; gap:14px; margin-top:auto">{chips}</div>'
@@ -510,9 +511,9 @@ TYPES = [
     ('01', 'Visites', f'2{NB}h', 2, 2),
     ('02', 'Premiers pas', f'8{NB}h', 8, 8),
     ('03', 'Immersion', f'40{NB}h', 40, 40),
-    ('04', 'Métiers', f'16 à 24{NB}h', 16, 24),
+    ('04', 'Métier augmenté', f'16 à 24{NB}h', 16, 24),
     ('05', 'Culture numérique', f'4 à 8{NB}h', 4, 8),
-    ('06', 'Prise de parole', f'4 à 8{NB}h', 4, 8),
+    ('06', 'Face caméra', f'4 à 8{NB}h', 4, 8),
 ]
 OVW = 820
 k = OVW / 40
@@ -545,10 +546,10 @@ for n, (num, name, dur, lo, hi) in enumerate(TYPES):
 slides['apercu'] = (
     '<section id="apercu" class="light" data-transition="push">'
     f'{prog(2)}'
-    + head('Le catalogue', 'Six types d’ateliers,', 'modulables selon les besoins du groupe.') +
+    + head('Le catalogue', 'Six ateliers,', 'modulables selon les besoins du groupe.') +
     '<div class="ov">'
     f'<div style="position:absolute; left:540px; top:48px; width:{OVW}px; height:516px">{grid}</div>'
-    '<div class="ovrow ovhead f" style="--i:2"><p class="ovnum"></p><p class="ovname dlabel" style="font-size:24px">Type</p>'
+    '<div class="ovrow ovhead f" style="--i:2"><p class="ovnum"></p><p class="ovname dlabel" style="font-size:24px">Atelier</p>'
     f'<div class="ovscale">{scale}</div><p class="ovdur dlabel" style="font-size:24px">Durée</p></div>'
     f'{rows}'
     '</div>'
@@ -631,7 +632,7 @@ fig3 = (
     + pin(0, 330, 824, 0, f'<p class="cap">Comptent autant dans le projet</p>{bars}', 'a', 7)
     + '</div>')
 
-# Fig 04 — Métiers
+# Fig 04 — Métier augmenté
 def node(x, w, icon, title, sub1, sub2, i):
     return pin(x, 0, w, 0, (
         f'<div style="box-sizing:border-box; width:{w}px; background:#ffffff; border:1px solid {LINE}; border-radius:14px; padding:30px; '
@@ -667,7 +668,7 @@ fig5 = (
     f'<div class="prow a" style="--i:6; margin-top:30px">{d_levels()}<p class="lab" style="font-weight:500">Pour des groupes de niveaux variés</p></div>'
     '</div>')
 
-# Fig 06 — Prise de parole
+# Fig 06 — Face caméra
 steps = ''
 for n, (num, txt) in enumerate((('01', 'Repérer ses freins et ses atouts'), ('02', 'S’exercer à parler face à la caméra'))):
     steps += (
@@ -689,15 +690,15 @@ TY = [
     ('visites', 1, 'Visites', 'Visites', 'les métiers qui se numérisent.', T1, duration(f'2{NB}h', 2, 2, public=('Chercheurs d’emploi en formation', 'Formateurs et opérateurs')), fig1),
     ('premiers-pas', 2, 'Premiers pas', 'Premiers pas', 'deux technologies à essayer.', T2, duration(f'8{NB}h', 8, 8, 'soit une journée', public=('Chercheurs d’emploi inscrits via Formapass', 'Groupes de chercheurs d’emploi en formation')), fig2),
     ('immersion', 3, 'Immersion', 'Immersion', 'un projet complet.', T3, duration(f'40{NB}h', 40, 40, public=('Chercheurs d’emploi à la suite des Premiers pas', 'Chercheurs d’emploi inscrits via Formapass')), fig3),
-    ('metiers', 4, 'Métiers', 'Métiers', 'relier le numérique au métier.', T4, duration(f'16 à 24{NB}h', 16, 24, public=('Chercheurs d’emploi en formation métier',)), fig4),
+    ('metiers', 4, 'Métier augmenté', 'Métier augmenté', 'relier le numérique au métier.', T4, duration(f'16 à 24{NB}h', 16, 24, public=('Chercheurs d’emploi en formation métier',)), fig4),
     ('culture-numerique', 5, 'Culture numérique', 'Culture numérique', 'réflexes et esprit critique.', T5, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig5),
-    ('prise-de-parole', 6, 'Prise de parole', 'Prise de parole', 'gagner en assurance.', T6, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig6),
+    ('prise-de-parole', 6, 'Face caméra', 'Face caméra', 'gagner en assurance.', T6, duration(f'4 à 8{NB}h', 4, 8, public=('Chercheurs d’emploi en formation', 'Chercheurs d’emploi en formation métier')), fig6),
 ]
 for sid, idx, kick, name, promise, text, dh, fh in TY:
     slides[sid] = type_slide(sid, idx, kick, name, promise, text, dh, fh)
 
 # 09 — Modularité
-TM = ("Selon les besoins du groupe, un module Culture numérique ou Prise de parole peut compléter un autre atelier ou en remplacer une partie. "
+TM = ("Selon les besoins du groupe, un module Culture numérique ou Face caméra peut compléter un autre atelier ou en remplacer une partie. "
       "Les durées indiquées servent donc de repère.")
 def scen(kick, boxes, sub, i):
     return (f'<div class="card a" style="--i:{i}; width:640px; padding:34px 34px 30px">'
@@ -714,7 +715,7 @@ figm = (
     + '</div>'
     '<div class="prow f" style="--i:9; gap:40px; margin-top:36px">'
     f'<div class="prow" style="gap:14px"><div style="width:28px; height:28px; border-radius:6px; background:{VIOLET}"></div>'
-    '<p class="sub" style="color:#333333">Module Culture numérique ou Prise de parole</p></div>'
+    '<p class="sub" style="color:#333333">Module Culture numérique ou Face caméra</p></div>'
     f'<div class="prow" style="gap:14px"><div style="box-sizing:border-box; width:28px; height:28px; border-radius:6px; border:2px solid {DARK}; background:#ffffff"></div>'
     '<p class="sub" style="color:#333333">Atelier</p></div>'
     '</div>')
@@ -732,9 +733,9 @@ RC = [
     ('01', 'Visites', f'2{NB}h', 'un aperçu de la numérisation des métiers'),
     ('02', 'Premiers pas', f'8{NB}h', 'deux technologies à essayer'),
     ('03', 'Immersion', f'40{NB}h', 'un projet complet, de la conception à la présentation'),
-    ('04', 'Métiers', f'16 à 24{NB}h', 'le numérique relié au métier choisi'),
+    ('04', 'Métier augmenté', f'16 à 24{NB}h', 'le numérique relié au métier choisi'),
     ('05', 'Culture numérique', f'4 à 8{NB}h', 'cybersécurité et intelligence artificielle'),
-    ('06', 'Prise de parole', f'4 à 8{NB}h', 'se présenter face à la caméra'),
+    ('06', 'Face caméra', f'4 à 8{NB}h', 'gagner en assurance pour se présenter'),
 ]
 rrows = ''.join(
     f'<div class="rcrow a" style="--i:{n + 2}"><p class="rcnum">{a}</p><p class="rcname">{b}</p><p class="rcdur">{c}</p><p class="rcdesc">{d}</p></div>'

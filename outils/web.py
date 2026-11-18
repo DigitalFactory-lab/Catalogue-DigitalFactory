@@ -146,7 +146,7 @@ page = (
     '<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n'
     '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
     f'<title>{html.escape(title)}</title>\n'
-    '<meta name="description" content="Catalogue des ateliers de la Digital Factory du Forem : six types d’ateliers, '
+    '<meta name="description" content="Catalogue des ateliers de la Digital Factory du Forem : six ateliers, '
     'modulables selon les besoins du groupe.">\n'
     f'{fonts}\n<style>\n{BASE}{deck_css}{PLAYER_CSS}</style>\n'
     '<noscript><style>body { overflow: auto; } #deck { position: static; } '

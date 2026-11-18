@@ -1,6 +1,6 @@
 # Catalogue des ateliers de la Digital Factory
 
-Présentation des six types d'ateliers de la Digital Factory du Forem à Liège, destinée aux partenaires : Visites, Premiers pas, Immersion, Métiers, Culture numérique et Prise de parole.
+Présentation des six ateliers de la Digital Factory du Forem à Liège, destinée aux partenaires : Visites, Premiers pas, Immersion, Métier augmenté, Culture numérique et Face caméra.
 
 ## Consulter le catalogue
 

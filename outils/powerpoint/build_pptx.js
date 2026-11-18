@@ -25,11 +25,13 @@ const pt = (px) => +(px / 2).toFixed(2);
 const kickerPh = (color) => ({ placeholder: { options: { name: 'kicker', type: 'body', x: P(158), y: P(126), w: P(1300), h: P(34),
   fontSize: 12, color, valign: 'middle', margin: 0, charSpacing: 1.5 }, text: '' } });
 const covSlide = L.find(x => x.id === 'couverture');
-const covTitle = covSlide.items.find(it => it.kind === 'text' && it.runs.map(r => r.t || '').join('').includes('types d’ateliers'));
+// titre de la couverture : le plus grand texte de la diapositive (« ateliers »)
+const covTitle = covSlide.items.filter(it => it.kind === 'text').reduce((a, b) => (b.st.size > a.st.size ? b : a));
 pres.defineSlideMaster({ title: 'DF Couverture', background: { color: 'F4F5F7' },
   objects: [
     { placeholder: { options: { name: 'title', type: 'title', x: P(covTitle.x), y: P(covTitle.y), w: P(covTitle.w + 12), h: P(covTitle.h + 8),
-      fontSize: 32, bold: true, color: C.text2, align: 'left', valign: 'top', margin: 0, lineSpacing: 35.2, charSpacing: -0.75 }, text: '' } },
+      fontSize: pt(covTitle.st.size), bold: true, color: C.text2, align: 'left', valign: 'top', margin: 0, lineSpacing: pt(covTitle.st.lh),
+      charSpacing: covTitle.st.ls ? pt(covTitle.st.ls) : 0 }, text: '' } },
     { rect: { x: 0, y: P(1074), w: P(1920), h: P(6), fill: { color: C.accent4 } } },
   ] });
 pres.defineSlideMaster({ title: 'DF Contenu', background: { color: 'F4F5F7' },
