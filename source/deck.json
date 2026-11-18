@@ -1,0 +1,49 @@
+{
+ "v": 5,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-18T12:57:06Z"
+ },
+ "lists": "css",
+ "format": {
+  "v": 1,
+  "shared": [
+   "project/deck.css"
+  ]
+ },
+ "title": "Les types d’ateliers de la Digital Factory",
+ "order": [
+  "couverture",
+  "apercu",
+  "visites",
+  "premiers-pas",
+  "immersion",
+  "metiers",
+  "culture-numerique",
+  "prise-de-parole",
+  "modularite",
+  "resume"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Ouverture : les ateliers de la Digital Factory et leurs six types.",
+   "start": "couverture"
+  },
+  "s2": {
+   "description": "Les six types d’ateliers, un par diapositive.",
+   "start": "visites"
+  },
+  "s3": {
+   "description": "La modularité des ateliers et le résumé.",
+   "start": "modularite"
+  }
+ },
+ "cover": "couverture",
+ "faces": {
+  "poppins": {
+   "family": "Poppins",
+   "href": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+  }
+ },
+ "designSystems": []
+}
